@@ -183,3 +183,43 @@ include('../db_connect/DatabaseConnection.php');
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
+
+<?php
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $username = mysqli_real_escape_string($conn, $_POST['username']);
+        $email = mysqli_real_escape_string($conn, $_POST['user_email']);
+        $password = mysqli_real_escape_string($conn, $_POST['user_password']);
+        $confirm_password = mysqli_real_escape_string($conn, $_POST['confirm_password']);
+
+        if ($confirm_password !== $confirm_password) {
+            $error_message = "Password Tidak Sama";
+        }else{
+            //check validasi email ada atau tidak di db
+            $query = "SELECT * FROM users WHERE user_email = '$email'";
+            
+            $result = mysqli_query($conn, $query);
+            if (mysqli_num_rows($result) > 0) {
+                $error_message = "Email sudah terdaftar";
+                
+            }else{
+                $query = "SELECT * FROM users WHERE username = '$username'";
+                $result = mysqli_query($conn, $query);
+                if (mysqli_num_rows($result) > 0) {
+                $error_message = "Username sudah ada";
+                }else{
+                    //mengirim password dengan password_hash agar terenkripsi
+                    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                    $insert_query = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$hashed_password')";
+                    if (mysqli_query($conn, $insert_query)) {
+                        $_SESSION['username'] = $username;  // Menyimpan username di session
+                        header("Location: ../main_form/mainForm.php");  // Redirect ke halaman utama setelah registrasi berhasil
+                        exit();
+                    } else {
+                        $error_message = "Terjadi kesalahan, coba lagi nanti.";
+                    }
+                }
+            }  
+        }
+    }
+?>
