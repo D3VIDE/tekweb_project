@@ -207,16 +207,23 @@ include('../db_connect/DatabaseConnection.php');
     $username = mysqli_real_escape_string($conn, $_POST['username']); //mysqli untuk mencegah sql injection
     $password = mysqli_real_escape_string($conn, $_POST['user_password']);
     
-    // Query untuk memeriksa pengguna
+
     $query = "SELECT * FROM users WHERE username = '$username'";
     $result = mysqli_query($conn, $query);
+    //troubleshoot
+    if($result){
+        echo"Berhasil";
+    }else{
+        echo "Error: " . mysqli_error($conn);
+    }
+    // Ambil data hasil query
+    $user = mysqli_fetch_assoc($result);
 
-    if (mysqli_num_rows($result) == 1) {
-        $user = mysqli_fetch_assoc($result);
-        
-        // Verifikasi password (diasumsikan password terenkripsi menggunakan password_hash())
+    // Validasi apakah user ditemukan
+    if ($user) {
+        // Verifikasi password
         if (password_verify($password, $user['password'])) {
-            // Set session
+            // Login berhasil, set session
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
 
@@ -224,13 +231,13 @@ include('../db_connect/DatabaseConnection.php');
             header("Location: ../main_form/mainForm.php");
             exit();
         } else {
+            // Password salah
             $error_message = "Password salah.";
         }
     } else {
+        // Username tidak ditemukan
         $error_message = "Username tidak ditemukan.";
     }
-} else {
-    $error_message = "";
 }
 ?>
 
