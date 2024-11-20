@@ -208,10 +208,17 @@ include('../db_connect/DatabaseConnection.php');
                 if (mysqli_num_rows($result) > 0) {
                 $error_message = "Username sudah ada";
                 }else{
+                    $id_query = "SELECT MAX(id_user) AS max_id FROM users";
+                    $id_result = mysqli_query($conn, $id_query);
+                    $id_row = mysqli_fetch_assoc($id_result);
+                    $new_user_id = $id_row['max_id'] + 1;
+                    
+                    // Increment the max_id by 1 for the new user
                     //mengirim password dengan password_hash agar terenkripsi
                     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                    $insert_query = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$hashed_password')";
+                    $insert_query = "INSERT INTO users (id_user,username, user_email, user_password) VALUES ('$new_user_id','$username', '$email', '$hashed_password')";
                     if (mysqli_query($conn, $insert_query)) {
+                        echo "<script>console.log('Insert query done');</script>";
                         $_SESSION['username'] = $username;  // Menyimpan username di session
                         header("Location: ../main_form/mainForm.php");  // Redirect ke halaman utama setelah registrasi berhasil
                         exit();
