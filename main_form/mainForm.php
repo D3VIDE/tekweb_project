@@ -23,51 +23,51 @@ include('../auth/cookieValidation.php');
     .navbar {
     background-color: #2C2C2C; /* Tetap abu-abu gelap */
     font-family: Arial, sans-serif;
-}
-.navbar-brand, .nav-link {
-    color: #FFFFFF !important; /* Font putih untuk kontras */
-}
-.navbar-brand {
-    font-weight: bold;
-    font-size: 1.25rem;
-}
-.navbar-nav .nav-link:hover {
-    color: #FF4C4C !important; /* Merah terang saat hover */
-}
-.nav-link {
-    margin-right: 1.5rem;
-}
-.navbar-toggler {
-    border-color: #FFFFFF; /* Tanda toggle putih */
-}
-.login-btn {
-    background-color: #000000; /* Tombol hitam */
-    border: 2px solid #FF4C4C; /* Garis tepi merah */
-    padding: 5px 10px;
-    border-radius: 3px;
-    color: #FFFFFF; /* Font putih */
-    text-decoration: none;
-}
-.login-btn:hover {
-    background-color: #FF4C4C; /* Tombol berubah merah terang saat hover */
-    color: #FFFFFF; /* Font tetap putih */
-}
-.MainSection {
-    background-image: url('https://i.im.ge/2024/11/16/zTTkxF.Background.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center top;
-    height: 100vh;
-    display: flex;
-    align-items: center; /* Agar teks di tengah secara vertikal */
-    justify-content: center; /* Agar teks di tengah secara horizontal */
-    color: #FFFFFF;
-}
-.LoginText {
-    font-size: 50px;
-    font-family: Arial, sans-serif;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); /* Memastikan teks tetap jelas */
-}
+    }
+    .navbar-brand, .nav-link {
+        color: #FFFFFF !important; /* Font putih untuk kontras */
+    }
+    .navbar-brand {
+        font-weight: bold;
+        font-size: 1.25rem;
+    }
+    .navbar-nav .nav-link:hover {
+        color: #FF4C4C !important; /* Merah terang saat hover */
+    }
+    .nav-link {
+        margin-right: 1.5rem;
+    }
+    .navbar-toggler {
+        border-color: #FFFFFF; /* Tanda toggle putih */
+    }
+    .login-btn {
+        background-color: #000000; /* Tombol hitam */
+        border: 2px solid #FF4C4C; /* Garis tepi merah */
+        padding: 5px 10px;
+        border-radius: 3px;
+        color: #FFFFFF; /* Font putih */
+        text-decoration: none;
+    }
+    .login-btn:hover {
+        background-color: #FF4C4C; /* Tombol berubah merah terang saat hover */
+        color: #FFFFFF; /* Font tetap putih */
+    }
+    .MainSection {
+        background-image: url('https://i.im.ge/2024/11/16/zTTkxF.Background.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center top;
+        height: 100vh;
+        display: flex;
+        align-items: center; /* Agar teks di tengah secara vertikal */
+        justify-content: center; /* Agar teks di tengah secara horizontal */
+        color: #FFFFFF;
+    }
+    .LoginText {
+        font-size: 50px;
+        font-family: Arial, sans-serif;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); /* Memastikan teks tetap jelas */
+    }
 
         
         @media (min-height: 1081px) {
