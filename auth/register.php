@@ -27,8 +27,8 @@
 
                     // Hash the password before inserting
                     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                    $insert_query = "INSERT INTO publisher (id_publisher, publisher_name, publisher_password, logo_publisher) 
-                                     VALUES ('$new_publisher_id', '$username', '$hashed_password', '')"; // You can set a default logo or allow uploading
+                    $insert_query = "INSERT INTO publisher (id_publisher, publisher_name, publisher_password) 
+                                     VALUES ('$new_publisher_id', '$username', '$hashed_password')"; // You can set a default logo or allow uploading
                     if (mysqli_query($conn, $insert_query)) {
                         echo "<script>console.log('Publisher insert query done');</script>";
                         $_SESSION['username'] = $username; // Save username in session
