@@ -89,7 +89,7 @@ include('../auth/cookieValidation.php');
         color: #FFFFFF; /* Font tetap putih */
     }
     #MainSection {
-        background-image: url('https://i.im.ge/2024/11/16/zTTkxF.Background.png');
+        background-image: url('../assets/Background.png');
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center top;
