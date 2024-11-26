@@ -236,7 +236,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <a href="..\auth\Register.php" class="btn btn-primary mb-3  py-3 register-btn">
                 Buat Akun
             </a>
-                <a href="..\auth\publisher.php" class="text-decoration-none" style="color: #5caeff; font-size: 1rem;">Publisher?</a>
+                
             </div>
         </div>
     </div>
