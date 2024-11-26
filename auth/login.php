@@ -14,7 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = $result->fetch_assoc();
 
     if($user){
-        $_SESSION['username'] = $user['username'];
+        $_SESSION['user_id'] = $user['id_publisher'];
+        $_SESSION['username'] = $user['publisher_name'];
         header("Location: ../main_form/mainForm.php");
     }else{
 
