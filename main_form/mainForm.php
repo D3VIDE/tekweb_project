@@ -27,10 +27,10 @@ if ($is_logged_in) {
         $stmt->execute();
     
         $result = $stmt->get_result();
-        $publisher = $result->fetch_assoc(); 
+        $publisher = $result->fetch_assoc(); //untuk di cek di isset($publisher['publisher_name'])
 
-       
-        if ( $publisher && isset($publisher['publisher_name']) && $publisher['publisher_name'] === $username) {
+        //jika isset mengeluarkan hasil null maka is publisher akan jadi false
+        if (isset($publisher['publisher_name']) && $publisher['publisher_name'] === $username) {
             $is_publisher = true;
         }else{
             $is_publisher = false;
