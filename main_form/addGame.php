@@ -2,6 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,6 +61,9 @@ if (session_status() === PHP_SESSION_NONE) {
                   </div>
               </div>
           </div>
+
+        <!-- Modal Here-->
+        
     </section>
     
 
