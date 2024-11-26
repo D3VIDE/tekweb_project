@@ -228,7 +228,6 @@ include('../auth/cookieValidation.php');
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-
         </div>
         
     </section>
