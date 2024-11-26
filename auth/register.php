@@ -57,8 +57,8 @@
                         
                         // Hash the password before inserting
                         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                        $insert_query = "INSERT INTO users (id_user, username, user_email, user_password) 
-                                         VALUES ('$new_user_id', '$username', '$email', '$hashed_password')";
+                        $insert_query = "INSERT INTO users (id_user, username, user_email, user_password,role_user) 
+                                         VALUES ('$new_user_id', '$username', '$email', '$hashed_password','USER')";
                         if (mysqli_query($conn, $insert_query)) {
                             echo "<script>console.log('User insert query done');</script>";
                             $_SESSION['username'] = $username; // Save username in session
