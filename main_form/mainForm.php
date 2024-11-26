@@ -53,7 +53,7 @@ include('../auth/cookieValidation.php');
         background-color: #FF4C4C; /* Tombol berubah merah terang saat hover */
         color: #FFFFFF; /* Font tetap putih */
     }
-    .MainSection {
+    #MainSection {
         background-image: url('https://i.im.ge/2024/11/16/zTTkxF.Background.png');
         background-size: cover;
         background-repeat: no-repeat;
@@ -103,7 +103,7 @@ include('../auth/cookieValidation.php');
         border-radius: 5px;
     }
 
-    #slider-section{
+    #gameSlider{
         display: flex;
         justify-content: center;
         align-items: center;
@@ -154,7 +154,7 @@ include('../auth/cookieValidation.php');
     </nav>
     
     <section id="loop-video" style="position:relative;">
-        <div class="video-section " style="z-index:1; position:relative;">
+        <div class="video-section " style="z-index:1; position:relative;height:500px;">
             <video autoplay muted loop class="w-100" style="height: 500px; object-fit: cover; z-index:1; position:relative;">
                 <source src="https://shared.fastly.steamstatic.com/store_item_assets/steam/clusters/frontpage/b04ec5ca66d2105a0fccc116/webm_page_bg_indonesian.webm?t=1731704947" type="video/mp4">
                 Browser Anda tidak mendukung video HTML5.
@@ -191,42 +191,46 @@ include('../auth/cookieValidation.php');
     </section>
 
     
-    <section id="slider-section">
-        <div id="gameSlider" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <!-- Static Images -->
-                <div class="carousel-item active" style="height: 100%;">
-                    <img src="https://via.placeholder.com/940x400?text=Game+1" class="d-block w-100" alt="Game 1">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Game 1</h5>
-                        <p>Placeholder for Game 1 description.</p>
+    <section id="MainSection">
+        <div class="container">
+            <div id="gameSlider" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <!-- Static Images -->
+                    <div class="carousel-item active" style="height: 100%;">
+                        <img src="https://via.placeholder.com/940x400?text=Game+1" class="d-block w-100" alt="Game 1">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Game 1</h5>
+                            <p>Placeholder for Game 1 description.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item" style="height: 100%;">
+                        <img src="https://via.placeholder.com/940x400?text=Game+2" class="d-block w-100" alt="Game 2">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Game 2</h5>
+                            <p>Placeholder for Game 2 description.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item" style="height: 100%;">
+                        <img src="https://via.placeholder.com/940x400?text=Game+3" class="d-block w-100" alt="Game 3">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Game 3</h5>
+                            <p>Placeholder for Game 3 description.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="carousel-item" style="height: 100%;">
-                    <img src="https://via.placeholder.com/940x400?text=Game+2" class="d-block w-100" alt="Game 2">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Game 2</h5>
-                        <p>Placeholder for Game 2 description.</p>
-                    </div>
-                </div>
-                <div class="carousel-item" style="height: 100%;">
-                    <img src="https://via.placeholder.com/940x400?text=Game+3" class="d-block w-100" alt="Game 3">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Game 3</h5>
-                        <p>Placeholder for Game 3 description.</p>
-                    </div>
-                </div>
+                <!-- Navigation -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#gameSlider" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#gameSlider" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
-            <!-- Navigation -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#gameSlider" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#gameSlider" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+
         </div>
+        
     </section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
