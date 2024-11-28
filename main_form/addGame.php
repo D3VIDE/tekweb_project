@@ -7,30 +7,37 @@ include('../db_connect/DatabaseConnection.php');
 
 // Proses jika form ditambahkan
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['gameName'])) {
-   
-
     $gameName = $_POST['gameName'];
     $gameDesc = $_POST['gameDesc'];
     $gameGenres = $_POST['gameGenres'];
-        // Ambil id_publisher berdasarkan user_id dari session
-        $userId = $_SESSION['username'];
-        $stmt = $conn->prepare("SELECT id_publisher FROM publisher WHERE publisher_name = ?");
-        $stmt->bind_param("i", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        
-        if ($result && $result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $idPublisher = $row['id_publisher'];
-            echo "Username dari sesi: " . $idPublisher . "<br>";
-        } else {
-            die("Publisher tidak ditemukan untuk pengguna ini.");
-        }
+    
+    // Ambil id_publisher berdasarkan user_id dari session
+    $userId = $_SESSION['username'];
+    $stmt = $conn->prepare("SELECT id_publisher FROM publisher WHERE publisher_name = ?");
+    $stmt->bind_param("i", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $idPublisher = $row['id_publisher'];
+        echo "Username dari sesi: " . $idPublisher . "<br>";
+    } else {
+        die("Publisher tidak ditemukan untuk pengguna ini.");
+    }
 
-    // Proses upload gambar sebagai BLOB
-    $coverImage = null;
+    // Proses upload gambar ke folder
+    $coverImagePath = null;
     if (isset($_FILES['coverImage']) && $_FILES['coverImage']['error'] == 0) {
-        $coverImage = file_get_contents($_FILES['coverImage']['tmp_name']);
+        // Tentukan path tempat gambar akan disimpan
+        $uploadDir = '../uploads/';
+        $fileName = basename($_FILES['coverImage']['name']);
+        $coverImagePath = $uploadDir . $fileName;
+
+        // Pindahkan file gambar ke folder tujuan
+        if (!move_uploaded_file($_FILES['coverImage']['tmp_name'], $coverImagePath)) {
+            die("Gagal mengupload gambar.");
+        }
     }
 
     // Ambil nilai id_game terbesar yang ada di tabel games
@@ -39,13 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['gameName'])) {
     $maxId = $row['max_id'];
     $newGameId = $maxId + 1;
 
- 
-
     // Simpan game ke database dengan id_game yang baru
     $stmt = $conn->prepare("INSERT INTO games (id_game, game_name, game_desc, is_admit, release_date, id_publisher, games_profile) VALUES (?, ?, ?, ?, NOW(), ?, ?)");
     $isAdmit = false; 
     
-    $stmt->bind_param("issiib", $newGameId, $gameName, $gameDesc, $isAdmit, $idPublisher, $coverImage);
+    $stmt->bind_param("issiis", $newGameId, $gameName, $gameDesc, $isAdmit, $idPublisher, $coverImagePath);
     if ($stmt->execute()) {
         // Simpan genre
         if ($gameGenres) {
@@ -154,9 +159,8 @@ $games = $conn->query("SELECT game_name, game_desc, games_profile FROM games");
         <ul class="list-group">
             <?php
             while ($game = $games->fetch_assoc()) {
-                $imageData = base64_encode($game['games_profile']);
                 echo "<li class='list-group-item'>";
-                echo "<img src='data:image/jpeg;base64,$imageData' alt='Cover' class='img-thumbnail me-2' style='width: 100px;'>";
+                echo "<img src='" . $game['games_profile'] . "' alt='Cover' class='img-thumbnail me-2' style='width: 100px;'>";
                 echo "<strong>" . $game['game_name'] . "</strong>";
                 echo "<p>" . $game['game_desc'] . "</p>";
                 echo "</li>";
