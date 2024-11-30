@@ -9,7 +9,7 @@
         $confirm_password = mysqli_real_escape_string($conn, $_POST['confirm_password']);
 
         if ($confirm_password !== $password) {
-            $error_message = "Password Tidak Sama";
+            $error_message = "Password Tidak Sama.";
         } else {
             // Check if the email contains "@publisher"
             if (strpos($email, '@publisher') !== false) {
