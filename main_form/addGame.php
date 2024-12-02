@@ -68,12 +68,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['gameName'])) {
 
     // Simpan game ke database jika gambar berhasil diupload
     if ($coverImagePath) {
-        $stmt = $conn->prepare("INSERT INTO games (id_game, game_name, game_desc, is_admit, release_date, id_publisher, games_image) VALUES (?, ?, ?, ?, NOW(), ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO games (game_name, game_desc, is_admit, release_date, id_publisher, games_image) VALUES (?, ?, ?, NOW(), ?, ?)");
         $isAdmit = false; // Default status
-        $stmt->bind_param("issiis", $newGameId, $gameName, $gameDesc, $isAdmit, $idPublisher, $coverImagePath);
+        $stmt->bind_param("ssiis",$gameName, $gameDesc, $isAdmit, $idPublisher, $coverImagePath);
 
         if ($stmt->execute()) {
             $lastInsertId = $stmt->insert_id; // Dapatkan ID game terakhir yang ditambahkan
+            
 
             // Simpan genre ke database
             if ($gameGenres) {
