@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['gameName'])) {
             if ($gameGenres) {
                 foreach ($gameGenres as $genreId) {
                     $stmt = $conn->prepare("INSERT INTO detail_genre (id_game, id_genre) VALUES (?, ?)");
-                    $stmt->bind_param("ii", $newGameId, $genreId);
+                    $stmt->bind_param("ii", $lastInsertId, $genreId);
                     $stmt->execute();
                 }
                 $successMessage = "Game berhasil ditambahkan.";
