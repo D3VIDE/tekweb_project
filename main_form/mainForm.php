@@ -280,32 +280,27 @@ include('../auth/cookieValidation.php');
     </section>
 
     <!-- Navbar Kedua -->
-     <section id="subnavbar-game" style="position: absolute; top: 100px; left: 0; width: 100%; z-index: 2;">
-        <nav class="navbar navbar-expand-lg navbar-dark mt-3 mx-auto" style="width:940px; length:66px; padding:0; ">
-            <div class="container navbar-custom">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Toko</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Baru & Patut Dicoba</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Kategori</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Toko Poin</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Berita</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Lab</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </section>
+    <section id="subnavbar-game" style="position: absolute; top: 100px; left: 0; width: 100%; z-index: 2;">
+    <nav class="navbar navbar-expand-lg mt-3 mx-auto" style="max-width: 960px; padding: 0;">
+        <div class="container-fluid navbar-custom">
+            <form class="d-flex mx-auto w-100" role="search" style="max-width: 600px;">
+                <input 
+                    class="form-control me-2" 
+                    type="search" 
+                    placeholder="Search for games, genres, or publishers..." 
+                    aria-label="Search" 
+                    style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);">
+                <button 
+                    class="btn btn-secondary" 
+                    type="submit" 
+                    style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);">
+                    Search
+                </button>
+            </form>
+        </div>
+    </nav>
+</section>
+
 </header>
 <body>
 <section id="carousel">
