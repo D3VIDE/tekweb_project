@@ -38,8 +38,8 @@ if ($is_logged_in) {
     }
 }
 
-
-
+$query = "SELECT id_game, game_name, game_desc, games_image, release_date, like_count FROM games WHERE is_admit = 1";
+$result = $conn->query($query);
 
 
 // Check if the user is logged in via session
@@ -128,15 +128,37 @@ include('../auth/cookieValidation.php');
     }
 
 
-    .carousel-item img {
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    }
-    .carousel-caption {
-        background-color: rgba(0, 0, 0, 0.6);
-        padding: 10px;
-        border-radius: 5px;
-    }
+    .carousel-item {
+    transition: transform 0.5s ease-in-out;
+}
+
+.game-image-container img {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #ff4444;
+    border-radius: 50%;
+}
+
+.btn-danger {
+    background-color: #ff4444;
+    border: none;
+    transition: background 0.3s;
+}
+
+.btn-danger:hover {
+    background-color: #ff6666;
+}
+
+
 
     #gameSlider{
         display: flex;
@@ -238,42 +260,58 @@ include('../auth/cookieValidation.php');
 
     
     <section id="MainSection">
-        <div class="container rekomendasi-game">
-            <div id="gameSlider" class="carousel slide" data-bs-ride="carousel">
+        <!-- FITUR REKOMENDASI GAME  -->
+        <div class="container mt-5">
+            <h1 class="text-center mb-4">Featured Free Games</h1>
+            <div id="gameCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    <!-- Static Images -->
-                    <div class="carousel-item active" style="height: 100%;">
-                        <img src="https://via.placeholder.com/940x400?text=Game+1" class="d-block w-100" alt="Game 1">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Game 1</h5>
-                            <p>Placeholder for Game 1 description.</p>
+                    <?php
+                    $isFirst = true;
+                    if ($result && $result->num_rows > 0):
+                        while ($game = $result->fetch_assoc()):
+                    ?>
+                            <div class="carousel-item <?= $isFirst ? 'active' : '' ?>">
+                                <div class="row">
+                                    <!-- Gambar Game -->
+                                    <div class="col-md-7">
+                                        <div class="game-image-container" style="height: 400px; overflow: hidden; background: #000;">
+                                            <img src="<?= $game['games_image'] ?>" class="d-block w-100" alt="<?= $game['game_name'] ?>" style="object-fit: cover; border-radius: 8px;">
+                                        </div>
+                                    </div>
+                                    <!-- Detail Game -->
+                                    <div class="col-md-5 d-flex flex-column justify-content-center bg-dark text-white p-4" style="border-radius: 8px;">
+                                        <h3 class="text-warning"><?= htmlspecialchars($game['game_name']) ?></h3>
+                                        <p><?= htmlspecialchars($game['game_desc']) ?></p>
+                                        <p>Released: <?= date('d M Y', strtotime($game['release_date'])) ?></p>
+                                        <p>Likes: <?= $game['like_count'] ?></p>
+                                        <button class="btn btn-danger btn-sm mt-3">Play Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                    <?php
+                            $isFirst = false;
+                        endwhile;
+                    else:
+                    ?>
+                        <div class="carousel-item active">
+                            <div class="text-center p-5" style="background: #121212; color: #fff;">
+                                <h5>No Games Available</h5>
+                                <p>Please add games to the database.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="carousel-item" style="height: 100%;">
-                        <img src="https://via.placeholder.com/940x400?text=Game+2" class="d-block w-100" alt="Game 2">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Game 2</h5>
-                            <p>Placeholder for Game 2 description.</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item" style="height: 100%;">
-                        <img src="https://via.placeholder.com/940x400?text=Game+3" class="d-block w-100" alt="Game 3">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Game 3</h5>
-                            <p>Placeholder for Game 3 description.</p>
-                        </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
-                <!-- Navigation -->
-                <button class="carousel-control-prev" type="button" data-bs-target="#gameSlider" data-bs-slide="prev">
+                <!-- Carousel controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#gameCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#gameSlider" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#gameCarousel" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
+        </div>
     </section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
