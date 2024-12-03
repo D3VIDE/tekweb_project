@@ -150,7 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand mx-auto" href="../main_form/mainForm.php">
-                <img src="../assets/UapLogoText.svg" alt="UapLogo">
+                <img src="../assets/UapLogoText.svg" alt="UapLogo.">
             </a>
         </div>
     </nav>
