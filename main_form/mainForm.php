@@ -38,8 +38,8 @@ if ($is_logged_in) {
     }
 }
 
-$query = "SELECT id_game, game_name, game_desc, games_image, release_date, like_count FROM games WHERE is_admit = 1";
-$result = $conn->query($query);
+//$query = "SELECT id_game, game_name, game_desc, games_image, release_date, like_count FROM games WHERE is_admit = 1";
+//$result = $conn->query($query);
 
 
 // Check if the user is logged in via session
@@ -130,33 +130,33 @@ include('../auth/cookieValidation.php');
 
     .carousel-item {
     transition: transform 0.5s ease-in-out;
-}
+    }
 
-.game-image-container img {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-}
+    .game-image-container img {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    }
 
-.carousel-caption {
-    background: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    border-radius: 8px;
-}
+    .carousel-caption {
+        background: rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        border-radius: 8px;
+    }
 
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-color: #ff4444;
-    border-radius: 50%;
-}
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: #ff4444;
+        border-radius: 50%;
+    }
 
-.btn-danger {
-    background-color: #ff4444;
-    border: none;
-    transition: background 0.3s;
-}
+    .btn-danger {
+        background-color: #ff4444;
+        border: none;
+        transition: background 0.3s;
+    }
 
-.btn-danger:hover {
-    background-color: #ff6666;
-}
+    .btn-danger:hover {
+        background-color: #ff6666;
+    }
 
 
 
@@ -170,6 +170,21 @@ include('../auth/cookieValidation.php');
         display:flex;
         justify-content: center;
         align-items: center;
+    }
+
+    .badge {
+        font-size: 0.9rem;
+        padding: 0.4em 0.8em;
+        border-radius: 12px;
+        text-transform: capitalize;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s;
+    }
+
+    .badge:hover {
+        transform: scale(1.1);
+        background-color: #ff4444;
+        color: #fff;
     }
 
     </style>
@@ -267,8 +282,18 @@ include('../auth/cookieValidation.php');
                 <div class="carousel-inner">
                     <?php
                     $isFirst = true;
+                    $query = "
+                        SELECT g.id_game, g.game_name, g.games_image, g.game_desc, g.release_date, g.like_count,
+                            GROUP_CONCAT(genre.genre_name SEPARATOR ', ') AS genres
+                        FROM games g
+                        LEFT JOIN detail_genre dg ON g.id_game = dg.id_game
+                        LEFT JOIN genre ON dg.id_genre = genre.id_genre
+                        GROUP BY g.id_game;
+                     ";
+                    $result = $conn->query($query);
                     if ($result && $result->num_rows > 0):
                         while ($game = $result->fetch_assoc()):
+                            $genres = explode(',', $game['genres']);
                     ?>
                             <div class="carousel-item <?= $isFirst ? 'active' : '' ?>">
                                 <div class="row">
@@ -284,6 +309,13 @@ include('../auth/cookieValidation.php');
                                         <p><?= htmlspecialchars($game['game_desc']) ?></p>
                                         <p>Released: <?= date('d M Y', strtotime($game['release_date'])) ?></p>
                                         <p>Likes: <?= $game['like_count'] ?></p>
+                                    <div class="mt-2">
+                                    <h5 class="text-light">Genres:</h5>
+                                        <div div class="d-flex flex-wrap gap-2">
+                                            <?php foreach ($genres as $genre): ?>
+                                                <span class="badge bg-secondary"><?= htmlspecialchars(trim($genre)) ?></span>
+                                            <?php endforeach; ?>
+                                        </div>
                                         <button class="btn btn-danger btn-sm mt-3">Play Now</button>
                                     </div>
                                 </div>
