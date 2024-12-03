@@ -308,14 +308,15 @@ include('../auth/cookieValidation.php');
     </section>
 </header>
 <body>
-    <section id="carousel">
-        <!-- FITUR REKOMENDASI GAME  -->
-        <div class="container mt-5">
-            <h1 class="text-center mb-4">Featured Free Games</h1>
+<section id="carousel">
+    <!-- FITUR REKOMENDASI GAME -->
+    <div class="container mt-5">
+        <h1 class="text-center mb-4 text-warning">Featured Free Games</h1>
             <div id="gameCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <?php
                     $isFirst = true;
+                    $games = [];
                     $query = "
                         SELECT g.id_game, g.game_name, g.games_image, g.game_desc, g.release_date, g.like_count,
                             GROUP_CONCAT(genre.genre_name SEPARATOR ', ') AS genres
@@ -323,13 +324,19 @@ include('../auth/cookieValidation.php');
                         LEFT JOIN detail_genre dg ON g.id_game = dg.id_game
                         LEFT JOIN genre ON dg.id_genre = genre.id_genre
                         GROUP BY g.id_game;
-                     ";
+                    ";
                     $result = $conn->query($query);
                     if ($result && $result->num_rows > 0):
                         while ($game = $result->fetch_assoc()):
                             $genres = explode(',', $game['genres']);
+                            $games[] = $game;
+                        endwhile;
+
+                        // Loop untuk menampilkan setiap game dalam satu carousel-item
+                        foreach ($games as $index => $game):
+                            $isActive = ($index === 0) ? 'active' : ''; // Set active di item pertama
                     ?>
-                            <div class="carousel-item <?= $isFirst ? 'active' : '' ?>">
+                            <div class="carousel-item <?= $isActive ?>">
                                 <div class="row">
                                     <!-- Gambar Game -->
                                     <div class="col-md-7">
@@ -343,20 +350,20 @@ include('../auth/cookieValidation.php');
                                         <p><?= htmlspecialchars($game['game_desc']) ?></p>
                                         <p>Released: <?= date('d M Y', strtotime($game['release_date'])) ?></p>
                                         <p>Likes: <?= $game['like_count'] ?></p>
-                                    <div class="mt-2">
-                                    <h5 class="text-light">Genres:</h5>
-                                        <div div class="d-flex flex-wrap gap-2">
-                                            <?php foreach ($genres as $genre): ?>
-                                                <span class="badge bg-secondary"><?= htmlspecialchars(trim($genre)) ?></span>
-                                            <?php endforeach; ?>
+                                        <div class="mt-2">
+                                            <h5 class="text-light">Genres:</h5>
+                                            <div class="d-flex flex-wrap gap-2">
+                                                <?php foreach ($genres as $genre): ?>
+                                                    <span class="badge bg-secondary"><?= htmlspecialchars(trim($genre)) ?></span>
+                                                <?php endforeach; ?>
+                                            </div>
+                                            <button class="btn btn-danger btn-sm mt-3">Play Now</button>
                                         </div>
-                                        <button class="btn btn-danger btn-sm mt-3">Play Now</button>
                                     </div>
                                 </div>
                             </div>
                     <?php
-                            $isFirst = false;
-                        endwhile;
+                        endforeach;
                     else:
                     ?>
                         <div class="carousel-item active">
@@ -379,6 +386,7 @@ include('../auth/cookieValidation.php');
             </div>
         </div>
     </section>
+
 
     <section>
         <div class="container mt-5" >
