@@ -323,7 +323,9 @@ include('../auth/cookieValidation.php');
                         FROM games g
                         LEFT JOIN detail_genre dg ON g.id_game = dg.id_game
                         LEFT JOIN genre ON dg.id_genre = genre.id_genre
-                        GROUP BY g.id_game;
+                        WHERE g.is_admit = 1
+                        GROUP BY g.id_game
+                        LIMIT 5;
                     ";
                     $result = $conn->query($query);
                     if ($result && $result->num_rows > 0):
@@ -400,7 +402,8 @@ include('../auth/cookieValidation.php');
                     FROM games g
                     LEFT JOIN detail_genre dg ON g.id_game = dg.id_game
                     LEFT JOIN genre ON dg.id_genre = genre.id_genre
-                    GROUP BY g.id_game
+                    WHERE g.is_admit = 1
+                    GROUP BY g.id_game;
                 ";
                 $result = $conn->query($query);
 
