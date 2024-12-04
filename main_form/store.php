@@ -75,7 +75,7 @@ $result = $stmt->get_result();
 <body>
 <div class="store-header">
     <a href="../main_form/mainForm.php" class="text-decoration-none text-dark">
-        <h1>Game Store</h1>
+        <h1 style="color:white;">Game Store</h1>
     </a>
     <p>Temukan game favoritmu!</p>
 </div>
