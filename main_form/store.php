@@ -222,7 +222,8 @@ if ($is_logged_in) {
     .card {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: auto;
+    width: 100%;
 }
 
 .card-body {
@@ -244,9 +245,12 @@ if ($is_logged_in) {
 }
 
 .card-text {
-    height: 80px; /* Membatasi tinggi deskripsi game agar lebih rapi */
-    overflow: hidden; /* Menyembunyikan teks yang melebihi batas */
-}
+        font-size: 1rem; /* Ukuran teks lebih kecil */
+        height: 50px; /* Batasi tinggi untuk memastikan teks tidak terlalu panjang */
+        overflow: hidden; /* Menyembunyikan teks yang melampaui batas */
+        text-overflow: ellipsis; /* Tampilkan "..." jika teks terlalu panjang */
+        line-height: 1rem; /* Mengatur jarak antar baris teks agar lebih kompak */
+    }
 
 .card-footer {
     text-align: center; /* Mengatur footer untuk tombol agar rata tengah */
@@ -339,7 +343,7 @@ if ($is_logged_in) {
 
 <!-- Game Cards -->
 <div class="container">
-    <div class="row">
+    <div class="row g-2">
         <?php if ($result->num_rows > 0): ?>
             <?php while ($row = $result->fetch_assoc()): ?>
                 <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
