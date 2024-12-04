@@ -73,10 +73,12 @@ $result = $stmt->get_result();
     </style>
 </head>
 <body>
-    <div class="store-header">
+<div class="store-header">
+    <a href="../main_form/mainForm.php" class="text-decoration-none text-dark">
         <h1>Game Store</h1>
-        <p>Temukan game favoritmu!</p>
-    </div>
+    </a>
+    <p>Temukan game favoritmu!</p>
+</div>
 
     <!-- Search Bar -->
     <div class="search-bar text-center">
