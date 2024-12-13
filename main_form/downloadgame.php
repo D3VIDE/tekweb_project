@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 // Start session
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -29,7 +32,7 @@ $imageUrl = $game['games_image'];
 $gameName = $game['game_name']; // Get the game name
 
 // Debugging: Check if the game name is correct
-echo "Game Name: " . $gameName . "<br>";
+echo "Game Name: " . $gameName . "<br>";  // Make sure this shows
 
 // Validate the URL
 if (!filter_var($imageUrl, FILTER_VALIDATE_URL)) {
@@ -63,8 +66,18 @@ switch ($fileExtension) {
         die("Unsupported file type.");
 }
 
+// Disable SSL verification (not recommended for production)
+$options = [
+    "ssl" => [
+        "verify_peer" => false,
+        "verify_peer_name" => false,
+        "allow_self_signed" => true,  // Allow self-signed certificates
+    ]
+];
+$context = stream_context_create($options);
+
 // Fetch the file content from the URL
-$fileContent = file_get_contents($imageUrl);
+$fileContent = file_get_contents($imageUrl, false, $context);
 if ($fileContent === false) {
     die("Failed to retrieve the image.");
 }
